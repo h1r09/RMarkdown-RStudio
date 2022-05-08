@@ -1,0 +1,109 @@
+"0","library(readr)"
+"0","datasetClassV1 <- read_csv(ruta_ClassV1)"
+"1","[1mRows: [22m[34m7689[39m [1mColumns: [22m[34m102[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): ID, Name, LongName, Parent, Component, Path
+[32mdbl[39m (96): Line, Column, EndLine, EndColumn, CC, CCL, CCO, CI, CLC, CLLC, LDC, LLDC, LCOM5, NL, NLE, WMC, CBO, CBOI, NII, NOI, RFC, AD, ...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","datasetClassV2 <- read_csv(ruta_ClassV2)"
+"1","[1mRows: [22m[34m7038[39m [1mColumns: [22m[34m102[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): ID, Name, LongName, Parent, Component, Path
+[32mdbl[39m (96): Line, Column, EndLine, EndColumn, CC, CCL, CCO, CI, CLC, CLLC, LDC, LLDC, LCOM5, NL, NLE, WMC, CBO, CBOI, NII, NOI, RFC, AD, ...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","datasetClassV3 <- read_csv(ruta_ClassV3)"
+"1","[1mRows: [22m[34m7117[39m [1mColumns: [22m[34m102[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): ID, Name, LongName, Parent, Component, Path
+[32mdbl[39m (96): Line, Column, EndLine, EndColumn, CC, CCL, CCO, CI, CLC, CLLC, LDC, LLDC, LCOM5, NL, NLE, WMC, CBO, CBOI, NII, NOI, RFC, AD, ...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","datasetMethodV1 <- read_csv(ruta_MethodV1)"
+"1","[1mRows: [22m[34m60113[39m [1mColumns: [22m[34m77[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): ID, Name, LongName, Parent, Component, Path
+[32mdbl[39m (71): Line, Column, EndLine, EndColumn, CC, CCL, CCO, CI, CLC, CLLC, LDC, LLDC, HCPL, HDIF, HEFF, HNDB, HPL, HPV, HTRP, HVOL, MI, M...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","datasetMethodV2 <- read_csv(ruta_MethodV2)"
+"1","[1mRows: [22m[34m59440[39m [1mColumns: [22m[34m77[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): ID, Name, LongName, Parent, Component, Path
+[32mdbl[39m (71): Line, Column, EndLine, EndColumn, CC, CCL, CCO, CI, CLC, CLLC, LDC, LLDC, HCPL, HDIF, HEFF, HNDB, HPL, HPV, HTRP, HVOL, MI, M...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","datasetMethodV3 <- read_csv(ruta_MethodV3)"
+"1","[1mRows: [22m[34m62491[39m [1mColumns: [22m[34m77[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): ID, Name, LongName, Parent, Component, Path
+[32mdbl[39m (71): Line, Column, EndLine, EndColumn, CC, CCL, CCO, CI, CLC, CLLC, LDC, LLDC, HCPL, HDIF, HEFF, HNDB, HPL, HPV, HTRP, HVOL, MI, M...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","datasetAttributeV1 <- read_csv(ruta_AttributeV1)"
+"1","[1mRows: [22m[34m25544[39m [1mColumns: [22m[34m34[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): ID, Name, LongName, Parent, Component, Path
+[32mdbl[39m (28): Line, Column, EndLine, EndColumn, WarningBlocker, WarningCritical, WarningInfo, WarningMajor, WarningMinor, Anti Pattern, Bad...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","datasetAttributeV2 <- read_csv(ruta_AttributeV2)"
+"1","[1mRows: [22m[34m24789[39m [1mColumns: [22m[34m34[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): ID, Name, LongName, Parent, Component, Path
+[32mdbl[39m (28): Line, Column, EndLine, EndColumn, WarningBlocker, WarningCritical, WarningInfo, WarningMajor, WarningMinor, Anti Pattern, Bad...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","datasetAttributeV3 <- read_csv(ruta_AttributeV3)"
+"1","[1mRows: [22m[34m24293[39m [1mColumns: [22m[34m34[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): ID, Name, LongName, Parent, Component, Path
+[32mdbl[39m (28): Line, Column, EndLine, EndColumn, WarningBlocker, WarningCritical, WarningInfo, WarningMajor, WarningMinor, Anti Pattern, Bad...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

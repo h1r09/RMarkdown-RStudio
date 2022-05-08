@@ -1,0 +1,83 @@
+---
+title: "Indicadores"
+author: "Hunor Moriczi"
+date: '2022-05-08'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## Ejemplo de funcion en RMarkdown
+
+Crea una variable llamada ejemplo con la cadena "variable de ejemplo" y la muestra.
+
+```{r Funcion_ejemplo}
+ejemplo <- "variable de ejemplo"
+View(ejemplo)
+```
+
+Otros comandos interesantes:
+
+-   Borra todos los objetos en la sesión de R rm(list = ls())
+
+-   Comprueba si todavía hay algún objeto en la sesión ls()
+
+## Carga de datos
+
+Para empezar a trabajar se va a relaizar la carga de datos de los archivos .csv, obtenidos en el análisis de SonarQueb mediante SourceMeter.
+
+Al tratarse de archivos .csv se pueden cargar empleando las siguientes funciones:
+
+Primero obtengo las rutas de los archivos mediante la funcion file.choose(), que abrirá un explorador del sistema y me dará las rutas de los archivos seleccionados.
+
+Estas rutas las guardaré en variables para poder hacer uso de ella más adelante.
+
+```{r Obtener_ruta}
+file.choose()
+```
+
+obtengo todas las rutas de los 3 archivos obtenidos, class, method y attribute, de las 3 versiones analizadas:
+
+```{r rutas_excel}
+ruta_ClassV1 <- "C:\\Users\\hm_30\\Desktop\\PRIS2 Rstudio\\datos\\sonarqube-8.9.7.52159\\SonarQube_Hunor-Class-V1.csv"
+ruta_ClassV2 <- "C:\\Users\\hm_30\\Desktop\\PRIS2 Rstudio\\datos\\sonarqube-9.2.4.50792\\SonarQube_Hunor-Class-V2.csv"
+ruta_ClassV3 <- "C:\\Users\\hm_30\\Desktop\\PRIS2 Rstudio\\datos\\sonarqube-9.3.0.51899\\SonarQube_Hunor-Class-V3.csv"
+
+ruta_MethodV1 <- "C:\\Users\\hm_30\\Desktop\\PRIS2 Rstudio\\datos\\sonarqube-8.9.7.52159\\SonarQube_Hunor-Method-V1.csv"
+ruta_MethodV2 <- "C:\\Users\\hm_30\\Desktop\\PRIS2 Rstudio\\datos\\sonarqube-9.2.4.50792\\SonarQube_Hunor-Method-V2.csv"
+ruta_MethodV3 <- "C:\\Users\\hm_30\\Desktop\\PRIS2 Rstudio\\datos\\sonarqube-9.3.0.51899\\SonarQube_Hunor-Method-V3.csv"
+
+ruta_AttributeV1 <- "C:\\Users\\hm_30\\Desktop\\PRIS2 Rstudio\\datos\\sonarqube-8.9.7.52159\\SonarQube_Hunor-Attribute-V1.csv"
+ruta_AttributeV2 <- "C:\\Users\\hm_30\\Desktop\\PRIS2 Rstudio\\datos\\sonarqube-9.2.4.50792\\SonarQube_Hunor-Attribute-V2.csv"
+ruta_AttributeV3 <- "C:\\Users\\hm_30\\Desktop\\PRIS2 Rstudio\\datos\\sonarqube-9.3.0.51899\\SonarQube_Hunor-Attribute-V3.csv"
+
+```
+
+Ahora mediante la librería readr, guardo los datos de los excel en variables.
+
+```{r carga_a_variables}
+library(readr)
+datasetClassV1 <- read_csv(ruta_ClassV1)
+datasetClassV2 <- read_csv(ruta_ClassV2)
+datasetClassV3 <- read_csv(ruta_ClassV3)
+
+datasetMethodV1 <- read_csv(ruta_MethodV1)
+datasetMethodV2 <- read_csv(ruta_MethodV2)
+datasetMethodV3 <- read_csv(ruta_MethodV3)
+
+datasetAttributeV1 <- read_csv(ruta_AttributeV1)
+datasetAttributeV2 <- read_csv(ruta_AttributeV2)
+datasetAttributeV3 <- read_csv(ruta_AttributeV3)
+```
+
+Una vez cargados los datos veo la información que me da cada archivo o la información que es relevante para mi.
+
+### Archivos Class
+
+-   Una metrica interesante es la columna CBO, que el CBO de una clase es el número de clases a las cuales una clase está ligada. Se da dependencia entre dos clases cuando una clase usa métodos o variables de la otra clase. Las clases relacionadas por herencia no se tienen en cuenta.
+-   Otra que tomaré en cuenta es la columna RFC, que es el cardinal del conjunto de todos los métodos que pueden ser invocados en respuesta a un mensaje a un objeto de la clase o por alguno método en la clase. Esto incluye todos los métodos accesibles dentro de la jerarquía de la clase. En otras palabras, cuenta las ocurrencias de llamadas a otras clases desde una clase particular.
+-   Otra medida que se puede tener en cuenta es la columna LCOM, ya que un Un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos. Esto puede indicar que la clase está compuesta de elementos no relacionados, incrementando la complejidad y la probabilidad de errores durante el desarrollo.
+
+### Archivos Method
+
+### Archivos Attribute
