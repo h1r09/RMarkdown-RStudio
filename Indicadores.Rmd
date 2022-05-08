@@ -76,8 +76,8 @@ Una vez cargados los datos veo la información que me da cada archivo o la infor
 
 -   Una metrica interesante es la columna CBO, que el CBO de una clase es el número de clases a las cuales una clase está ligada. Se da dependencia entre dos clases cuando una clase usa métodos o variables de la otra clase. Las clases relacionadas por herencia no se tienen en cuenta.
 -   Otra que tomaré en cuenta es la columna RFC, que es el cardinal del conjunto de todos los métodos que pueden ser invocados en respuesta a un mensaje a un objeto de la clase o por alguno método en la clase. Esto incluye todos los métodos accesibles dentro de la jerarquía de la clase. En otras palabras, cuenta las ocurrencias de llamadas a otras clases desde una clase particular.
--   Otra medida que se puede tener en cuenta es la columna LCOM, ya que un Un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos. Esto puede indicar que la clase está compuesta de elementos no relacionados, incrementando la complejidad y la probabilidad de errores durante el desarrollo.
+-   Otra medida que se puede tener en cuenta es la columna LCOM, que es es una medida de la cohesión de una clase midiendo el número de atributos comunes usados por diferentes métodos, indicando la calidad de la abstracción hecha en la clase. Un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos. Esto puede indicar que la clase está compuesta de elementos no relacionados, incrementando la complejidad y la probabilidad de errores durante el desarrollo.
 
 ### Archivos Method
 
-### Archivos Attribute
+-   Una metrica para los metodos podría ser NOS, numero de pasos y LOC lineas de código. \### Archivos Attribute
