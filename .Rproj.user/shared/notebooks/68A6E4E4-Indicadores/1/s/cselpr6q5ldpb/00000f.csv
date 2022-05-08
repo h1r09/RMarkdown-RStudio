@@ -1,4 +1,0 @@
-"0","library(readr)"
-"0","datasetPrueba <- read_csv(ruta_excel_classV1)"
-"2","Error in standardise_path(file) : object 'ruta_excel_classV1' not found
-"
