@@ -1,42 +1,42 @@
 ---
 title: "Indicadores"
 author: "Hunor Moriczi"
-date: '2022-05-08'
+date: '2022-05-05'
 output:
   pdf_document: default
   html_document: default
 ---
 
+# Indicadores en R
+
+En este documento se hará una rápida guia en el proceso de carga de datos desde un archivo .csv, obtencion de medias, creacion de gráficas de barras, gráficas de densidad etc. Por último se crearán una serie de indicadores que pueden ser utiles para verificar ciertas clases o metodos dentro de un software.
+
+En este caso el software analizado es SonarQube, concretamente las siguientes versiones:
+
+1.  [8.9.7.52159](https://github.com/SonarSource/sonarqube/releases/tag/8.9.7.52159)
+2.  [9.2.4.50792](https://github.com/SonarSource/sonarqube/releases/tag/9.2.4.50792)
+3.  [9.3.0.51899](https://github.com/SonarSource/sonarqube/releases/tag/9.3.0.51899)
+
 ## Ejemplo de funcion en RMarkdown
 
-Crea una variable llamada ejemplo con la cadena "variable de ejemplo" y la muestra.
+En este apartado se mostrará la forma de crear una funcion sencilla en RMarkdown.
+
+Se crea una variable llamada ejemplo con la cadena "variable de ejemplo" y la muestra.
 
 ```{r Funcion_ejemplo}
 ejemplo <- "variable de ejemplo"
-View(ejemplo)
+ejemplo
 ```
-
-Otros comandos interesantes:
-
--   Borra todos los objetos en la sesión de R rm(list = ls())
-
--   Comprueba si todavía hay algún objeto en la sesión ls()
 
 ## Carga de datos
 
-Para empezar a trabajar se va a relaizar la carga de datos de los archivos .csv, obtenidos en el análisis de SonarQueb mediante SourceMeter.
-
-Al tratarse de archivos .csv se pueden cargar empleando las siguientes funciones:
+Para empezar a trabajar se va a relaizar la carga de datos de los archivos .csv, obtenidos en el análisis de SonarQube mediante SourceMeter. Estos datos se encuentra en el directorio de este proyecto, dentro del directorio datos y separados en carpetas identificaticas, según la versión analizada del software.
 
 Primero obtengo las rutas de los archivos mediante la funcion file.choose(), que abrirá un explorador del sistema y me dará las rutas de los archivos seleccionados.
 
 Estas rutas las guardaré en variables para poder hacer uso de ella más adelante.
 
-```{r Obtener_ruta}
-file.choose()
-```
-
-obtengo todas las rutas de los 3 archivos obtenidos, class y method, de las 3 versiones analizadas:
+Obtengo todas las rutas de los archivos obtenidos, con las métricas de clases y métodos, de las 3 versiones analizadas:
 
 ```{r rutas_excel}
 ruta_ClassV1 <- "datos\\sonarqube-8.9.7.52159\\SonarQube_Hunor-Class-V1.csv"
@@ -53,31 +53,56 @@ Ahora mediante la librería readr, guardo los datos de los excel en variables.
 
 ```{r carga_a_variables}
 library(readr)
-datasetClassV1 <- read_csv(ruta_ClassV1)
-datasetClassV2 <- read_csv(ruta_ClassV2)
-datasetClassV3 <- read_csv(ruta_ClassV3)
+datasetClassV1 <- read_csv(ruta_ClassV1, show_col_types = FALSE)
+datasetClassV2 <- read_csv(ruta_ClassV2, show_col_types = FALSE)
+datasetClassV3 <- read_csv(ruta_ClassV3, show_col_types = FALSE)
 
-datasetMethodV1 <- read_csv(ruta_MethodV1)
-datasetMethodV2 <- read_csv(ruta_MethodV2)
-datasetMethodV3 <- read_csv(ruta_MethodV3)
+datasetMethodV1 <- read_csv(ruta_MethodV1, show_col_types = FALSE)
+datasetMethodV2 <- read_csv(ruta_MethodV2, show_col_types = FALSE)
+datasetMethodV3 <- read_csv(ruta_MethodV3, show_col_types = FALSE)
 
 ```
 
-Una vez cargados los datos veo la información que me da cada archivo o la información que es relevante para mi.
+Una vez cargados los datos pueden visualizarse a través del comando view(X) o simplemente escribiendo el nombre del valor en la consola.
 
 ### Archivos Class
 
--   Una metrica interesante es la columna CBO, que el CBO de una clase es el número de clases a las cuales una clase está ligada. Se da dependencia entre dos clases cuando una clase usa métodos o variables de la otra clase. Las clases relacionadas por herencia no se tienen en cuenta.Se propone como indicador del esfuerzo necesario para el mantenimiento y en el testeo. Cuanto más acoplamiento se da en una clase, más dificil será reutilizarla.
+En estos archivos se encuentran las metricas relacionadas con las clases, realizadas mediante SourceMeter. Si se repasan todas las columnas se puede ver un total de más de 40 métricas.
 
--   Otra que tomaré en cuenta es la columna RFC, que es el cardinal del conjunto de todos los métodos que pueden ser invocados en respuesta a un mensaje a un objeto de la clase o por alguno método en la clase. Esto incluye todos los métodos accesibles dentro de la jerarquía de la clase. En otras palabras, cuenta las ocurrencias de llamadas a otras clases desde una clase particular.
+Analizaré las que creo que pueden aportar mayor información o que me pueden ser más útiles a la hora de crear los indicadores.
 
--   Otra medida que se puede tener en cuenta es la columna LCOM, que es es una medida de la cohesión de una clase midiendo el número de atributos comunes usados por diferentes métodos, indicando la calidad de la abstracción hecha en la clase. Un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos. Esto puede indicar que la clase está compuesta de elementos no relacionados, incrementando la complejidad y la probabilidad de errores durante el desarrollo.
+-   Una metrica interesante es la columna CBO. El CBO de una clase es el número de clases a las cuales una clase está ligada. Se da dependencia entre dos clases cuando una clase usa métodos o variables de la otra clase. Las clases relacionadas por herencia no se tienen en cuenta.
 
--   Otra medida que se puede emplear es la columna WMC. Que mide la complejidad de una clase.Sugieren un umbral de 40 o 20, dependiendo si las clases son o no de interface de usuario respectivamente.
+Se propone como indicador del esfuerzo necesario para el mantenimiento y en el testeo. Cuanto más acoplamiento se da en una clase, más dificil será reutilizarla.
+
+-   Otra que tomaré en cuenta es la columna RFC, que es el cardinal del conjunto de todos los métodos que pueden ser invocados en respuesta a un mensaje a un objeto de la clase o por alguno método en la clase. Esto incluye todos los métodos accesibles dentro de la jerarquía de la clase.
+
+En otras palabras, cuenta las ocurrencias de llamadas a otras clases desde una clase particular.
+
+-   Otra medida que se puede tener en cuenta es la columna LCOM, que es es una medida de la cohesión de una clase midiendo el número de atributos comunes usados por diferentes métodos, indicando la calidad de la abstracción hecha en la clase. Un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos.
+
+Esto puede indicar que la clase está compuesta de elementos no relacionados, incrementando la complejidad y la probabilidad de errores durante el desarrollo.
+
+-   Otra medida que se puede emplear es la columna WMC. Que mide la complejidad de una clase. Segun he visto en apuntes de clase, se sugiere un umbral de 40 o 20, dependiendo si las clases son o no de interface de usuario respectivamente.
+
+Propondré un indicador para las clases que tengas valores superiores a estos.
 
 ### Archivos Method
 
--   Una metrica para los metodos podría CD o TCLOC, densidad de coemtarios o lineas totales de comentarios por método
+-   Una metrica para los metodos podría CD o TCLOC, densidad de comentarios o lineas totales de comentarios por método.
+
+El problema a la hora de crear los indicadores con las métricas de métodos es que un gran % no tiene datos relevantes o el valor es 0. Para trabajar con medias u otros datos, no puedo tener en cuenta po ejemplo le media de lineas de código de coemntarios ya que me da un valor de 0.48 líneas de codigo de comentario por método.
+
+Si no tengo en cuenta las clases con 0 comentarios, 80%, y haga los indicadores, quizás sean datos falseados y no tengan relevancia o un sentido real.
+
+### Variables con las métricas
+
+En el siguiente apartado creo las siguientes variables, que contendrán las columnas con las metricas que me interesan de cada uno de los dataset cargados.
+
+-   LOC -\> Lineas de código
+-   CBO -\> Acoplamineto entre clases
+-   WMC -\> Complejidad de una clase
+-   LCOM5 -\> Grado de cohesion de una clase
 
 ```{r elegir_columna}
 LOC_classV1 <- datasetClassV1$LOC
@@ -96,31 +121,16 @@ LCOM5_classV1 <- datasetClassV1$LCOM5
 LCOM5_classV2 <- datasetClassV2$LCOM5
 LCOM5_classV3 <- datasetClassV3$LCOM5
 
-
 LOC_methodV1 <- datasetMethodV1$LOC
 LOC_methodV2 <- datasetMethodV2$LOC
 LOC_methodV3 <- datasetMethodV3$LOC
 
-TCLOC_methodV1 <- datasetMethodV1$TCLOC
-TCLOC_methodV2 <- datasetMethodV2$TCLOC
-TCLOC_methodV3 <- datasetMethodV3$TCLOC
-```
-
-```{r ver_LOC}
-View(LOC_classV1)
 
 ```
 
-```{r tabla_Frecuencia_NOS}
-freqNOS_classV1 <- table(cut(NOS_methodV1, breaks = c(0,1,5,10,15,20,25,50,100,200,300,400), right = F, include.lowest = T), exclude = NULL)
+### Máximos y mínimos
 
-rownames(freqNOS_classV1) <- c('0-1','1-5','5-10','10-15','15-20','20-25','25-50','50-100','100-200','200-300','300-400')
-
-
-barplot(freqNOS_classV1)
-```
-
-### En este bloque se obtienen los minimos y maximos de cada vetor de datos, para poder realizar unas tablas de frecuencia con sentido.
+En este bloque se obtienen los minimos y maximos de cada vector de datos, para poder realizar unas tablas de frecuencia con unos rangos con sentido
 
 -   Cálculo de min y max LOC clases
 
@@ -131,7 +141,6 @@ min_LOC_ClassV3 <- min(datasetClassV3$LOC)
 max_LOC_ClassV1 <- max(datasetClassV1$LOC)
 max_LOC_ClassV2 <- max(datasetClassV2$LOC)
 max_LOC_ClassV3 <- max(datasetClassV3$LOC)
-
 ```
 
 -   Cálculo de min y max CBO clases
@@ -143,7 +152,6 @@ min_CBO_ClassV3 <- min(datasetClassV3$CBO)
 max_CBO_ClassV1 <- max(datasetClassV1$CBO)
 max_CBO_ClassV2 <- max(datasetClassV2$CBO)
 max_CBO_ClassV3 <- max(datasetClassV3$CBO)
-
 ```
 
 -   Cálculo de min y max LCOM5 clases
@@ -155,7 +163,6 @@ min_LCOM5_ClassV3 <- min(datasetClassV3$LCOM5)
 max_LCOM5_ClassV1 <- max(datasetClassV1$LCOM5)
 max_LCOM5_ClassV2 <- max(datasetClassV2$LCOM5)
 max_LCOM5_ClassV3 <- max(datasetClassV3$LCOM5)
-
 ```
 
 -   Cálculo de min y max WMC clases
@@ -167,8 +174,9 @@ min_WMC_ClassV3 <- min(datasetClassV3$WMC)
 max_WMC_ClassV1 <- max(datasetClassV1$WMC)
 max_WMC_ClassV2 <- max(datasetClassV2$WMC)
 max_WMC_ClassV3 <- max(datasetClassV3$WMC)
-
 ```
+
+### Gráficas de barras con el LOC de las clases de las 3 versiones
 
 ```{r tabla_Frecuencia_LOC}
 freqLOC_classV1 <- table(cut(LOC_classV1, breaks = c(0,25,50,100,250,500,1000,2000), right = F, include.lowest = T), exclude = NULL)
@@ -176,78 +184,134 @@ freqLOC_classV2 <- table(cut(LOC_classV2, breaks = c(0,25,50,100,250,500,1000,20
 freqLOC_classV3 <- table(cut(LOC_classV3, breaks = c(0,25,50,100,250,500,1000,2000), right = F, include.lowest = T), exclude = NULL)
 
 rownames(freqLOC_classV1) <- c('0-25','25-50','50-100','100-250','250-500','500-1000','1000-2000')
+rownames(freqLOC_classV2) <- c('0-25','25-50','50-100','100-250','250-500','500-1000','1000-2000')
+rownames(freqLOC_classV3) <- c('0-25','25-50','50-100','100-250','250-500','500-1000','1000-2000')
 
 barplot(freqLOC_classV1,
         main = 'Líneas de Código V1',
         col = 'lightblue',
         xlab = 'Líneas de código',
-        ylab = 'Cantidad')
+        ylab = 'Cantidad de clases')
 barplot(freqLOC_classV2,
         main = 'Líneas de Código V2',
         col = 'blue',
         xlab = 'Líneas de código',
-        ylab = 'Cantidad')
+        ylab = 'Cantidad de clases')
 barplot(freqLOC_classV3,
         main = 'Líneas de Código V3',
         col = 'red',
         xlab = 'Líneas de código',
-        ylab = 'Cantidad')
+        ylab = 'Cantidad de clases')
 ```
+
+### Gráficas de barras con el CBO de las clases de las 3 versiones
 
 ```{r tabla_Frecuencia_CBO}
 freqCBO_classV1 <- table(cut(CBO_classV1, breaks = c(0,1,5,10,15,20,25,50,100,200,300,321), right = F, include.lowest = T), exclude = NULL)
+freqCBO_classV2 <- table(cut(CBO_classV2, breaks = c(0,1,5,10,15,20,25,50,100,200,250), right = F, include.lowest = T), exclude = NULL)
+freqCBO_classV3 <- table(cut(CBO_classV3, breaks = c(0,1,5,10,15,20,25,50,100,200,250), right = F, include.lowest = T), exclude = NULL)
 
 rownames(freqCBO_classV1) <- c('0-1','1-5','5-10','10-15','15-20','20-25','25-50','50-100','100-200','200-300','300-321')
+rownames(freqCBO_classV2) <- c('0-1','1-5','5-10','10-15','15-20','20-25','25-50','50-100','100-200','200-250')
+rownames(freqCBO_classV3) <- c('0-1','1-5','5-10','10-15','15-20','20-25','25-50','50-100','100-200','200-250')
 
-barplot(freqCBO_classV1)
+barplot(freqCBO_classV1,
+        main = 'CBO V1',
+        col = 'lightblue',
+        xlab = 'CBO',
+        ylab = 'Cantidad de clases ')
+barplot(freqCBO_classV2,
+        main = 'CBO V2',
+        col = 'blue',
+        xlab = 'CBO',
+        ylab = 'Cantidad de clases')
+barplot(freqCBO_classV3,
+        main = 'CBO V3',
+        col = 'red',
+        xlab = 'CBO',
+        ylab = 'Cantidad de clases')
 ```
 
-Mediante un histograma se puede sacar la misma informacion, pero para ver mejor la dispersion es mejor emplear barplot y establecer otros rangos.
+Mediante un histograma se puede sacar la misma información, pero para ver mejor la dispersión de los datos, es mejor emplear barplot y establecer otros rangos perosnalizados.
+
+Se puede ver en el siguiente ejemplo con el CBO de la versión 1.
 
 ```{r Histograma}
-hist(datasetClassV1$LCOM5)
+hist(datasetClassV1$CBO)
 ```
 
-```{r Histograma}
-hist(datasetMethodV1$TCLOC)
-```
-
-```{r tabla_Frecuencia_CBO}
-freqTCLOC_classV1 <- table(cut(TCLOC_methodV1, breaks = c(0,1,5,10,20,30,40,50,60,70,80,90,100), right = F, include.lowest = T), exclude = NULL)
-
-rownames(freqTCLOC_classV1) <- c('0-1','1-5','5-10','10-20','20-30','30-40','40-50','50-60','60-70','70-80','80-90','90-100')
-
-barplot(freqTCLOC_classV1)
-```
+### Gráficas de barras con el LCOM5 de las clases de las 3 versiones
 
 ```{r tabla_Frecuencia_LCOM5}
 freqLCOM5_classV1 <- table(cut(LCOM5_classV1, breaks = c(0,1,2,3,4,5,10,15,20,25,30,35,40,45,55), right = F, include.lowest = T), exclude = NULL)
 freqLCOM5_classV2 <- table(cut(LCOM5_classV2, breaks = c(0,1,2,3,4,5,10,15,20,25,30,35,40,45,55), right = F, include.lowest = T), exclude = NULL)
+freqLCOM5_classV3 <- table(cut(LCOM5_classV3, breaks = c(0,1,2,3,4,5,10,15,20,25,30,35,40,45,55), right = F, include.lowest = T), exclude = NULL)
 rownames(freqLCOM5_classV1) <- c('0-1','1-2','2-3','3-4','4-5','5-10','10-15','15-20','20-25','25-30','30-35','35-40','40-45','45-55')
+rownames(freqLCOM5_classV2) <- c('0-1','1-2','2-3','3-4','4-5','5-10','10-15','15-20','20-25','25-30','30-35','35-40','40-45','45-55')
+rownames(freqLCOM5_classV3) <- c('0-1','1-2','2-3','3-4','4-5','5-10','10-15','15-20','20-25','25-30','30-35','35-40','40-45','45-55')
 
 barplot(freqLCOM5_classV1,
+        main = 'LCOM5 V1',
+        col = 'lightblue',
+        xlab = 'LCOM5',
+        ylab = 'Cantidad de clases ')
+barplot(freqLCOM5_classV2,
+        main = 'LCOM5 V2',
         col = 'blue',
         xlab = 'LCOM5',
-        ylab = 'Cantidad',
-        )
-barplot(freqLCOM5_classV2,
+        ylab = 'Cantidad de clases')
+barplot(freqLCOM5_classV3,
+        main = 'LCOM5 V3',
         col = 'red',
         xlab = 'LCOM5',
-        ylab = 'Cantidad')
-
+        ylab = 'Cantidad de clases')
 ```
 
+### Gráficas de barras con el WMC de las clases de las 3 versiones
+
 ```{r tabla_Frecuencia_WMC}
-freqWMC_classV1 <- table(cut(WMC_classV1, breaks = c(0,2,4,6,8,10,20,30,40,50,60,70,80,90,100,110,123), right = F, include.lowest = T), exclude = NULL)
+freqWMC_classV1 <- table(cut(WMC_classV1, breaks = c(0,2,4,6,8,10,20,30,40,50,60,70,80,90,100,110,125), right = F, include.lowest = T), exclude = NULL)
+freqWMC_classV2 <- table(cut(WMC_classV2, breaks = c(0,2,4,6,8,10,20,30,40,50,60,70,80,90,100,110,125), right = F, include.lowest = T), exclude = NULL)
+freqWMC_classV3 <- table(cut(WMC_classV3, breaks = c(0,2,4,6,8,10,20,30,40,50,60,70,80,90,100,110,125), right = F, include.lowest = T), exclude = NULL)
 
-rownames(freqWMC_classV1) <- c('0-2','2-4','4-6','6-8','8-10','10-20','20-30','30-40','40-50','50-60','60-70','70-80','80-90','90-100','100-110','110-123')
+rownames(freqWMC_classV1) <- c('0-2','2-4','4-6','6-8','8-10','10-20','20-30','30-40','40-50','50-60','60-70','70-80','80-90','90-100','100-110','110-125')
+rownames(freqWMC_classV1) <- c('0-2','2-4','4-6','6-8','8-10','10-20','20-30','30-40','40-50','50-60','60-70','70-80','80-90','90-100','100-110','110-125')
+rownames(freqWMC_classV1) <- c('0-2','2-4','4-6','6-8','8-10','10-20','20-30','30-40','40-50','50-60','60-70','70-80','80-90','90-100','100-110','110-125')
 
-barplot(freqWMC_classV1)
+barplot(freqWMC_classV1,
+        main = 'WMC V1',
+        col = 'lightblue',
+        xlab = 'WMC',
+        ylab = 'Cantidad de clases ')
+barplot(freqWMC_classV2,
+        main = 'WMC V2',
+        col = 'blue',
+        xlab = 'WMC',
+        ylab = 'Cantidad de clases')
+barplot(freqWMC_classV3,
+        main = 'WMC V3',
+        col = 'red',
+        xlab = 'WMC',
+        ylab = 'Cantidad de clases')
 ```
 
 ### Medias de las metricas que emplearé
 
-Medias de todas las columnas que voy a emplear para analizar el código: CBO, LOC, LCOM5 y WMC para las me´tricas de clases. - LOC --\> La media de las líneas de código de cada version analizada. - CBO --\> La media del CBO de cada verion analizada. Se propone como indicador del esfuerzo necesario para el mantenimiento y en el testeo. Cuanto más acoplamiento, mayor CBO, se da en una clase, más dificil será reutilizarla. - LCOM5 --\> La media del LCOM5. Se puede crear un indicador ya que un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos. - WMC --\> LA media del WMC de las versiones analizadas. Mide la complejidad de una clase. Sugieren un umbral de 40 o 20, dependiendo si las clases son o no de interface de usuario respectivamente. UN valor alto indicaría un esfuerzo grande para desarollar, mantener y testear la clase. Se debe mantener un valor MWC lo más bajo posible.
+Medias de todas las columnas que voy a emplear para analizar el código: CBO, LOC, LCOM5 y WMC para las me´tricas de clases.
+
+-   LOC -\> La media de las líneas de código de cada version analizada.
+
+-   CBO -\> La media del CBO de cada verion analizada. Cuanto más acoplamiento, mayor CBO, se da en una clase, más dificil será reutilizarla.
+
+Se propone como indicador del esfuerzo necesario para el mantenimiento y en el testeo. 
+
+-   LCOM5 -\> La media del LCOM5. 
+
+Se puede crear un indicador ya que un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos.
+
+-   WMC -\> La media del WMC de las versiones analizadas. Mide la complejidad de una clase.  Se debe mantener un valor MWC lo más bajo posible.
+
+Según he visto en apuntes de clase, se sugiere un umbral de 40 o 20, dependiendo si las clases son o no de interface de usuario respectivamente. Crearé un indicador en base a estos datos.
 
 ```{r Medias}
 mediaLOC_ClassV1 <- mean(LOC_classV1)
@@ -265,55 +329,77 @@ mediaLCOM5_ClassV3 <- mean(LCOM5_classV3)
 mediaWMC_ClassV1 <- mean(WMC_classV1)
 mediaWMC_ClassV2 <- mean(WMC_classV2)
 mediaWMC_ClassV3 <- mean(WMC_classV3)
-
-mediaTCLO_MethodV1 <- mean(TCLOC_methodV1)
-mediaTCLO_MethodV2 <- mean(TCLOC_methodV2)
-mediaTCLO_MethodV3 <- mean(TCLOC_methodV3)
-
 ```
 
+
+## Indicadores 
+
+En el siguiente apartado se crearan y explicarán 3 indicadores, que según mi criterio, tienen sentido.
+
+### Indicador CBO
+
+Tal como se ha visto en los apartados anteriores, cuanto mayor CBO, mayor acoplamineto. Esto quiere decir que las clases con un CBO alto necesitan un mayor esfuerzo para su mantenimiento y testeo.
+
+La media del CBO en las 3 versiones es :
+
+```{r mostrar_media_CBO}
+mediaCBO_ClassV1
+mediaCBO_ClassV2
+mediaCBO_ClassV3
+```
+Tambien observo que el máximo de CBO en las 3 versiones es:
+
+```{r mostrar_maximo_CBO}
+max_CBO_ClassV1
+max_CBO_ClassV2
+max_CBO_ClassV3
+```
+ Estos datos tan elevados sólo están presentes en alrededor de 10 clases de cada version. Aun asi hay muchos valores altos.
+ El indicador que propongo es que toda clase que doble la media de CBO se alamcenará en un subconjunto para poder revisarse posteriormente.
+ 
+ Este indicador está hecho con la media del analisis de la versión 1.
+ 
 ```{r indicador_CBO}
-mediaCBO_30 <- (mediaCBO_ClassV1 * 0.3) + mediaCBO_ClassV1
-Clases_aRevisar_CBO_Alto <- datasetClassV1 [datasetClassV1$CBO > mediaCBO_30 ,]
+mediaCBO_doble <- (mediaCBO_ClassV1 * 2)
+Clases_a_Revisar_CBO_Alto <- datasetClassV1 [datasetClassV1$CBO > mediaCBO_doble ,]
 ```
 
-En este caso el indicador será un valor de LCOM superior a 5. La media de todas las clases es de 1.40 asi que por encima de 5 es un valor muy alto.
+
+
+### Indicador LCOM 
+
+Medias de LCOM:
+```{r mostrar_media_CBO}
+mediaLCOM5_ClassV1
+mediaLCOM5_ClassV2
+mediaLCOM5_ClassV3
+```
+
+Como se puede observar la media es de 1.35 - 1.40 - 1.54 en las 3 versiones analizadas.
+Un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos.
+
+Propongo un indicador que guarde las clases, que superen el 5 como valor de LCOM, en un subconjunto para poder estudiar las clases a posterior
+
 ```{r indicador_LCOM}
-Clases_aRevisar_LCOM_Alto <- datasetClassV1 [datasetClassV1$LCOM5 > 5 ,]
+Clases_a_Revisar_LCOM_Alto <- datasetClassV1 [datasetClassV1$LCOM5 > 5 ,]
 ```
 
-En este caso creo el indicador con la metrica WMC. un valor superior  a 20 no es bueno segun los umbrales.
+
+### Indicador WMC
+
 ```{r indicador_WMC}
 Clases_aRevisar_WMC_Alto <- datasetClassV1 [datasetClassV1$WMC > 20 ,]
 ```
 
 
-```{r ver_LOC}
-View(Clases_aRevisar_CBO_Alto)
-View(Clases_aRevisar_LCOM_Alto)
-View(Clases_aRevisar_WMC_Alto)
-Clases_aRevisar_CBO_Alto
+```{r Ver_clases_resultado_indicadores}
+
 
 ```
 
 Moda para pero el número que más se repite dentro de los datos.
 
-```{r ver_LOC}
-Moda <- function(x) {
-  ux <- unique(x)
-  ux[which.max(tabulate(match(x, ux)))]
-}
-modaClassV1 <- Moda(LOC_classV1)
-modaClassV2 <- Moda(LOC_classV2)
-modaClassV3 <- Moda(LOC_classV3)
-```
 
-Las medidas de dispersion nos dicen que tan parecidos o diferentes pueden llegar a ser nuestrpos dataset
-
-```{r medidas_dispersion}
-medidasV1 <- max(datasetClassV1$LOC) - min(datasetClassV1$LOC)
-View(medidasV1)
-```
 
 Densidad de lineas de codigo por clase
 
