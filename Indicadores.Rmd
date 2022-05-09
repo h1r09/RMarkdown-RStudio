@@ -77,7 +77,7 @@ Una vez cargados los datos veo la información que me da cada archivo o la infor
 
 ### Archivos Method
 
--   Una metrica para los metodos podría ser NOS, numero de pasoso número de sentencias y LOC lineas de código. Otra cosa a tener en cuenta es la columna TLLOC que es "Total Logical Lines of Code"
+-   Una metrica para los metodos podría CD o TCLOC, densidad de coemtarios o lineas totales de comentarios por método
 
 ```{r elegir_columna}
 LOC_classV1 <- datasetClassV1$LOC
@@ -101,9 +101,9 @@ LOC_methodV1 <- datasetMethodV1$LOC
 LOC_methodV2 <- datasetMethodV2$LOC
 LOC_methodV3 <- datasetMethodV3$LOC
 
-NOS_methodV1 <- datasetMethodV1$NOS
-NOS_methodV2 <- datasetMethodV2$NOS
-NOS_methodV3 <- datasetMethodV3$NOS
+TCLOC_methodV1 <- datasetMethodV1$TCLOC
+TCLOC_methodV2 <- datasetMethodV2$TCLOC
+TCLOC_methodV3 <- datasetMethodV3$TCLOC
 ```
 
 ```{r ver_LOC}
@@ -203,8 +203,21 @@ barplot(freqCBO_classV1)
 ```
 
 Mediante un histograma se puede sacar la misma informacion, pero para ver mejor la dispersion es mejor emplear barplot y establecer otros rangos.
+
 ```{r Histograma}
 hist(datasetClassV1$LCOM5)
+```
+
+```{r Histograma}
+hist(datasetMethodV1$TCLOC)
+```
+
+```{r tabla_Frecuencia_CBO}
+freqTCLOC_classV1 <- table(cut(TCLOC_methodV1, breaks = c(0,1,5,10,20,30,40,50,60,70,80,90,100), right = F, include.lowest = T), exclude = NULL)
+
+rownames(freqTCLOC_classV1) <- c('0-1','1-5','5-10','10-20','20-30','30-40','40-50','50-60','60-70','70-80','80-90','90-100')
+
+barplot(freqTCLOC_classV1)
 ```
 
 ```{r tabla_Frecuencia_LCOM5}
@@ -224,8 +237,6 @@ barplot(freqLCOM5_classV2,
 
 ```
 
-
-
 ```{r tabla_Frecuencia_WMC}
 freqWMC_classV1 <- table(cut(WMC_classV1, breaks = c(0,2,4,6,8,10,20,30,40,50,60,70,80,90,100,110,123), right = F, include.lowest = T), exclude = NULL)
 
@@ -236,11 +247,7 @@ barplot(freqWMC_classV1)
 
 ### Medias de las metricas que emplearé
 
-Medias de todas las columnas que voy a emplear para analizar el código: CBO, LOC, LCOM5 y WMC para las me´tricas de clases.
-- LOC --> La media de las líneas de código de cada version analizada.
-- CBO --> La media del CBO de cada verion analizada. Se propone como indicador del esfuerzo necesario para el mantenimiento y en el testeo. Cuanto más acoplamiento, mayor CBO,  se da en una clase, más dificil será reutilizarla.
-- LCOM5 --> La media del LCOM5. Se puede crear un indicador ya que un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos.
-- WMC --> LA media del WMC de las versiones analizadas. Mide la complejidad de una clase. Sugieren un umbral de 40 o 20, dependiendo si las clases son o no de interface de usuario respectivamente. UN valor alto indicaría un esfuerzo grande para desarollar, mantener y testear la clase. Se debe mantener un valor MWC lo más bajo posible.
+Medias de todas las columnas que voy a emplear para analizar el código: CBO, LOC, LCOM5 y WMC para las me´tricas de clases. - LOC --\> La media de las líneas de código de cada version analizada. - CBO --\> La media del CBO de cada verion analizada. Se propone como indicador del esfuerzo necesario para el mantenimiento y en el testeo. Cuanto más acoplamiento, mayor CBO, se da en una clase, más dificil será reutilizarla. - LCOM5 --\> La media del LCOM5. Se puede crear un indicador ya que un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos. - WMC --\> LA media del WMC de las versiones analizadas. Mide la complejidad de una clase. Sugieren un umbral de 40 o 20, dependiendo si las clases son o no de interface de usuario respectivamente. UN valor alto indicaría un esfuerzo grande para desarollar, mantener y testear la clase. Se debe mantener un valor MWC lo más bajo posible.
 
 ```{r Medias}
 mediaLOC_ClassV1 <- mean(LOC_classV1)
@@ -259,9 +266,9 @@ mediaWMC_ClassV1 <- mean(WMC_classV1)
 mediaWMC_ClassV2 <- mean(WMC_classV2)
 mediaWMC_ClassV3 <- mean(WMC_classV3)
 
-mediaMethodV1 <- mean(LOC_methodV1)
-mediaMethodV2 <- mean(LOC_methodV2)
-mediaMethodV3 <- mean(LOC_methodV3)
+mediaTCLO_MethodV1 <- mean(TCLOC_methodV1)
+mediaTCLO_MethodV2 <- mean(TCLOC_methodV2)
+mediaTCLO_MethodV3 <- mean(TCLOC_methodV3)
 
 ```
 
@@ -270,9 +277,23 @@ mediaCBO_30 <- (mediaCBO_ClassV1 * 0.3) + mediaCBO_ClassV1
 Clases_aRevisar_CBO_Alto <- datasetClassV1 [datasetClassV1$CBO > mediaCBO_30 ,]
 ```
 
+En este caso el indicador será un valor de LCOM superior a 5. La media de todas las clases es de 1.40 asi que por encima de 5 es un valor muy alto.
+```{r indicador_LCOM}
+Clases_aRevisar_LCOM_Alto <- datasetClassV1 [datasetClassV1$LCOM5 > 5 ,]
+```
+
+En este caso creo el indicador con la metrica WMC. un valor superior  a 20 no es bueno segun los umbrales.
+```{r indicador_WMC}
+Clases_aRevisar_WMC_Alto <- datasetClassV1 [datasetClassV1$WMC > 20 ,]
+```
+
+
 ```{r ver_LOC}
 View(Clases_aRevisar_CBO_Alto)
+View(Clases_aRevisar_LCOM_Alto)
+View(Clases_aRevisar_WMC_Alto)
 Clases_aRevisar_CBO_Alto
+
 ```
 
 Moda para pero el número que más se repite dentro de los datos.
