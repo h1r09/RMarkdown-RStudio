@@ -1,0 +1,980 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Indicadores},
+  pdfauthor={Hunor Moriczi},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Indicadores}
+\author{Hunor Moriczi}
+\date{2022-05-05}
+
+\begin{document}
+\maketitle
+
+\hypertarget{indicadores-en-r}{%
+\section{Indicadores en R}\label{indicadores-en-r}}
+
+En este documento se hará una rápida guia en el proceso de carga de
+datos desde un archivo .csv, obtencion de medias, creacion de gráficas
+de barras, gráficas de densidad etc. Por último se crearán una serie de
+indicadores que pueden ser utiles para verificar ciertas clases o
+metodos dentro de un software.
+
+En este caso el software analizado es SonarQube, concretamente las
+siguientes versiones:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://github.com/SonarSource/sonarqube/releases/tag/8.9.7.52159}{8.9.7.52159}
+\item
+  \href{https://github.com/SonarSource/sonarqube/releases/tag/9.2.4.50792}{9.2.4.50792}
+\item
+  \href{https://github.com/SonarSource/sonarqube/releases/tag/9.3.0.51899}{9.3.0.51899}
+\end{enumerate}
+
+\hypertarget{ejemplo-de-funcion-en-rmarkdown}{%
+\subsection{Ejemplo de funcion en
+RMarkdown}\label{ejemplo-de-funcion-en-rmarkdown}}
+
+En este apartado se mostrará la forma de crear una funcion sencilla en
+RMarkdown.
+
+Se crea una variable llamada ejemplo con la cadena ``variable de
+ejemplo'' y la muestra.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ejemplo }\OtherTok{\textless{}{-}} \StringTok{"variable de ejemplo"}
+\NormalTok{ejemplo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "variable de ejemplo"
+\end{verbatim}
+
+\hypertarget{carga-de-datos}{%
+\subsection{Carga de datos}\label{carga-de-datos}}
+
+Para empezar a trabajar se va a relaizar la carga de datos de los
+archivos .csv, obtenidos en el análisis de SonarQube mediante
+SourceMeter. Estos datos se encuentra en el directorio de este proyecto,
+dentro del directorio datos y separados en carpetas identificaticas,
+según la versión analizada del software.
+
+Primero obtengo las rutas de los archivos mediante la funcion
+file.choose(), que abrirá un explorador del sistema y me dará las rutas
+de los archivos seleccionados.
+
+Estas rutas las guardaré en variables para poder hacer uso de ella más
+adelante.
+
+Obtengo todas las rutas de los archivos obtenidos, con las métricas de
+clases y métodos, de las 3 versiones analizadas:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ruta\_ClassV1 }\OtherTok{\textless{}{-}} \StringTok{"datos}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sonarqube{-}8.9.7.52159}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{SonarQube\_Hunor{-}Class{-}V1.csv"}
+\NormalTok{ruta\_ClassV2 }\OtherTok{\textless{}{-}} \StringTok{"datos}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sonarqube{-}9.2.4.50792}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{SonarQube\_Hunor{-}Class{-}V2.csv"}
+\NormalTok{ruta\_ClassV3 }\OtherTok{\textless{}{-}} \StringTok{"datos}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sonarqube{-}9.3.0.51899}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{SonarQube\_Hunor{-}Class{-}V3.csv"}
+
+\NormalTok{ruta\_MethodV1 }\OtherTok{\textless{}{-}} \StringTok{"datos}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sonarqube{-}8.9.7.52159}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{SonarQube\_Hunor{-}Method{-}V1.csv"}
+\NormalTok{ruta\_MethodV2 }\OtherTok{\textless{}{-}} \StringTok{"datos}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sonarqube{-}9.2.4.50792}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{SonarQube\_Hunor{-}Method{-}V2.csv"}
+\NormalTok{ruta\_MethodV3 }\OtherTok{\textless{}{-}} \StringTok{"datos}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sonarqube{-}9.3.0.51899}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{SonarQube\_Hunor{-}Method{-}V3.csv"}
+\end{Highlighting}
+\end{Shaded}
+
+Ahora mediante la librería readr, guardo los datos de los excel en
+variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\NormalTok{datasetClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(ruta\_ClassV1, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{datasetClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(ruta\_ClassV2, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{datasetClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(ruta\_ClassV3, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+
+\NormalTok{datasetMethodV1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(ruta\_MethodV1, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{datasetMethodV2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(ruta\_MethodV2, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{datasetMethodV3 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(ruta\_MethodV3, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Una vez cargados los datos pueden visualizarse a través del comando
+view(X) o simplemente escribiendo el nombre del valor en la consola.
+
+\hypertarget{archivos-class}{%
+\subsubsection{Archivos Class}\label{archivos-class}}
+
+En estos archivos se encuentran las metricas relacionadas con las
+clases, realizadas mediante SourceMeter. Si se repasan todas las
+columnas se puede ver un total de más de 40 métricas.
+
+Analizaré las que creo que pueden aportar mayor información o que me
+pueden ser más útiles a la hora de crear los indicadores.
+
+\begin{itemize}
+\tightlist
+\item
+  Una metrica interesante es la columna CBO. El CBO de una clase es el
+  número de clases a las cuales una clase está ligada. Se da dependencia
+  entre dos clases cuando una clase usa métodos o variables de la otra
+  clase. Las clases relacionadas por herencia no se tienen en cuenta.
+\end{itemize}
+
+Se propone como indicador del esfuerzo necesario para el mantenimiento y
+en el testeo. Cuanto más acoplamiento se da en una clase, más dificil
+será reutilizarla.
+
+\begin{itemize}
+\tightlist
+\item
+  Otra que tomaré en cuenta es la columna RFC, que es el cardinal del
+  conjunto de todos los métodos que pueden ser invocados en respuesta a
+  un mensaje a un objeto de la clase o por alguno método en la clase.
+  Esto incluye todos los métodos accesibles dentro de la jerarquía de la
+  clase.
+\end{itemize}
+
+En otras palabras, cuenta las ocurrencias de llamadas a otras clases
+desde una clase particular.
+
+\begin{itemize}
+\tightlist
+\item
+  Otra medida que se puede tener en cuenta es la columna LCOM, que es es
+  una medida de la cohesión de una clase midiendo el número de atributos
+  comunes usados por diferentes métodos, indicando la calidad de la
+  abstracción hecha en la clase. Un valor alto de LCOM implica falta de
+  cohesión, es decir, escasa similitud de los métodos.
+\end{itemize}
+
+Esto puede indicar que la clase está compuesta de elementos no
+relacionados, incrementando la complejidad y la probabilidad de errores
+durante el desarrollo.
+
+\begin{itemize}
+\tightlist
+\item
+  Otra medida que se puede emplear es la columna WMC. Que mide la
+  complejidad de una clase. Segun he visto en apuntes de clase, se
+  sugiere un umbral de 40 o 20, dependiendo si las clases son o no de
+  interface de usuario respectivamente.
+\end{itemize}
+
+Propondré un indicador para las clases que tengas valores superiores a
+estos.
+
+\hypertarget{archivos-method}{%
+\subsubsection{Archivos Method}\label{archivos-method}}
+
+\begin{itemize}
+\tightlist
+\item
+  Una metrica para los metodos podría CD o TCLOC, densidad de
+  comentarios o lineas totales de comentarios por método.
+\end{itemize}
+
+El problema a la hora de crear los indicadores con las métricas de
+métodos es que un gran \% no tiene datos relevantes o el valor es 0.
+Para trabajar con medias u otros datos, no puedo tener en cuenta po
+ejemplo le media de lineas de código de coemntarios ya que me da un
+valor de 0.48 líneas de codigo de comentario por método.
+
+Si no tengo en cuenta las clases con 0 comentarios, 80\%, y haga los
+indicadores, quizás sean datos falseados y no tengan relevancia o un
+sentido real.
+
+\hypertarget{variables-con-las-muxe9tricas}{%
+\subsubsection{Variables con las
+métricas}\label{variables-con-las-muxe9tricas}}
+
+En el siguiente apartado creo las siguientes variables, que contendrán
+las columnas con las metricas que me interesan de cada uno de los
+dataset cargados.
+
+\begin{itemize}
+\tightlist
+\item
+  LOC -\textgreater{} Lineas de código
+\item
+  CBO -\textgreater{} Acoplamineto entre clases
+\item
+  WMC -\textgreater{} Complejidad de una clase
+\item
+  LCOM5 -\textgreater{} Grado de cohesion de una clase
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LOC\_classV1 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV1}\SpecialCharTok{$}\NormalTok{LOC}
+\NormalTok{LOC\_classV2 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV2}\SpecialCharTok{$}\NormalTok{LOC}
+\NormalTok{LOC\_classV3 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV3}\SpecialCharTok{$}\NormalTok{LOC}
+
+\NormalTok{CBO\_classV1 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV1}\SpecialCharTok{$}\NormalTok{CBO}
+\NormalTok{CBO\_classV2 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV2}\SpecialCharTok{$}\NormalTok{CBO}
+\NormalTok{CBO\_classV3 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV3}\SpecialCharTok{$}\NormalTok{CBO}
+
+\NormalTok{WMC\_classV1 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV1}\SpecialCharTok{$}\NormalTok{WMC}
+\NormalTok{WMC\_classV2 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV2}\SpecialCharTok{$}\NormalTok{WMC}
+\NormalTok{WMC\_classV3 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV3}\SpecialCharTok{$}\NormalTok{WMC}
+
+\NormalTok{LCOM5\_classV1 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV1}\SpecialCharTok{$}\NormalTok{LCOM5}
+\NormalTok{LCOM5\_classV2 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV2}\SpecialCharTok{$}\NormalTok{LCOM5}
+\NormalTok{LCOM5\_classV3 }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV3}\SpecialCharTok{$}\NormalTok{LCOM5}
+
+\NormalTok{LOC\_methodV1 }\OtherTok{\textless{}{-}}\NormalTok{ datasetMethodV1}\SpecialCharTok{$}\NormalTok{LOC}
+\NormalTok{LOC\_methodV2 }\OtherTok{\textless{}{-}}\NormalTok{ datasetMethodV2}\SpecialCharTok{$}\NormalTok{LOC}
+\NormalTok{LOC\_methodV3 }\OtherTok{\textless{}{-}}\NormalTok{ datasetMethodV3}\SpecialCharTok{$}\NormalTok{LOC}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{muxe1ximos-y-muxednimos}{%
+\subsubsection{Máximos y mínimos}\label{muxe1ximos-y-muxednimos}}
+
+En este bloque se obtienen los minimos y maximos de cada vector de
+datos, para poder realizar unas tablas de frecuencia con unos rangos con
+sentido
+
+\begin{itemize}
+\tightlist
+\item
+  Cálculo de min y max LOC clases
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{min\_LOC\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV1}\SpecialCharTok{$}\NormalTok{LOC)}
+\NormalTok{min\_LOC\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV2}\SpecialCharTok{$}\NormalTok{LOC)}
+\NormalTok{min\_LOC\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV3}\SpecialCharTok{$}\NormalTok{LOC)}
+\NormalTok{max\_LOC\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV1}\SpecialCharTok{$}\NormalTok{LOC)}
+\NormalTok{max\_LOC\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV2}\SpecialCharTok{$}\NormalTok{LOC)}
+\NormalTok{max\_LOC\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV3}\SpecialCharTok{$}\NormalTok{LOC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Cálculo de min y max CBO clases
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{min\_CBO\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV1}\SpecialCharTok{$}\NormalTok{CBO)}
+\NormalTok{min\_CBO\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV2}\SpecialCharTok{$}\NormalTok{CBO)}
+\NormalTok{min\_CBO\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV3}\SpecialCharTok{$}\NormalTok{CBO)}
+\NormalTok{max\_CBO\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV1}\SpecialCharTok{$}\NormalTok{CBO)}
+\NormalTok{max\_CBO\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV2}\SpecialCharTok{$}\NormalTok{CBO)}
+\NormalTok{max\_CBO\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV3}\SpecialCharTok{$}\NormalTok{CBO)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Cálculo de min y max LCOM5 clases
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{min\_LCOM5\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV1}\SpecialCharTok{$}\NormalTok{LCOM5)}
+\NormalTok{min\_LCOM5\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV2}\SpecialCharTok{$}\NormalTok{LCOM5)}
+\NormalTok{min\_LCOM5\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV3}\SpecialCharTok{$}\NormalTok{LCOM5)}
+\NormalTok{max\_LCOM5\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV1}\SpecialCharTok{$}\NormalTok{LCOM5)}
+\NormalTok{max\_LCOM5\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV2}\SpecialCharTok{$}\NormalTok{LCOM5)}
+\NormalTok{max\_LCOM5\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV3}\SpecialCharTok{$}\NormalTok{LCOM5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Cálculo de min y max WMC clases
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{min\_WMC\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV1}\SpecialCharTok{$}\NormalTok{WMC)}
+\NormalTok{min\_WMC\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV2}\SpecialCharTok{$}\NormalTok{WMC)}
+\NormalTok{min\_WMC\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(datasetClassV3}\SpecialCharTok{$}\NormalTok{WMC)}
+\NormalTok{max\_WMC\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV1}\SpecialCharTok{$}\NormalTok{WMC)}
+\NormalTok{max\_WMC\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV2}\SpecialCharTok{$}\NormalTok{WMC)}
+\NormalTok{max\_WMC\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(datasetClassV3}\SpecialCharTok{$}\NormalTok{WMC)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{gruxe1ficas-de-barras-con-el-loc-de-las-clases-de-las-3-versiones}{%
+\subsubsection{Gráficas de barras con el LOC de las clases de las 3
+versiones}\label{gruxe1ficas-de-barras-con-el-loc-de-las-clases-de-las-3-versiones}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{freqLOC\_classV1 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(LOC\_classV1, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{250}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DecValTok{2000}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{freqLOC\_classV2 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(LOC\_classV2, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{250}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DecValTok{2000}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{freqLOC\_classV3 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(LOC\_classV3, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{250}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DecValTok{2000}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+
+\FunctionTok{rownames}\NormalTok{(freqLOC\_classV1) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}25\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}25{-}50\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}50{-}100\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}100{-}250\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}250{-}500\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}500{-}1000\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1000{-}2000\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(freqLOC\_classV2) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}25\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}25{-}50\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}50{-}100\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}100{-}250\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}250{-}500\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}500{-}1000\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1000{-}2000\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(freqLOC\_classV3) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}25\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}25{-}50\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}50{-}100\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}100{-}250\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}250{-}500\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}500{-}1000\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1000{-}2000\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{barplot}\NormalTok{(freqLOC\_classV1,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}Líneas de Código V1\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}lightblue\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}Líneas de código\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_LOC-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(freqLOC\_classV2,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}Líneas de Código V2\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}Líneas de código\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_LOC-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(freqLOC\_classV3,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}Líneas de Código V3\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}Líneas de código\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_LOC-3.pdf}
+
+\hypertarget{gruxe1ficas-de-barras-con-el-cbo-de-las-clases-de-las-3-versiones}{%
+\subsubsection{Gráficas de barras con el CBO de las clases de las 3
+versiones}\label{gruxe1ficas-de-barras-con-el-cbo-de-las-clases-de-las-3-versiones}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{freqCBO\_classV1 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(CBO\_classV1, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{200}\NormalTok{,}\DecValTok{300}\NormalTok{,}\DecValTok{321}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{freqCBO\_classV2 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(CBO\_classV2, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{200}\NormalTok{,}\DecValTok{250}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{freqCBO\_classV3 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(CBO\_classV3, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{200}\NormalTok{,}\DecValTok{250}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+
+\FunctionTok{rownames}\NormalTok{(freqCBO\_classV1) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}1\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1{-}5\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}5{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}15\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}15{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}25\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}25{-}50\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}50{-}100\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}100{-}200\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}200{-}300\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}300{-}321\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(freqCBO\_classV2) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}1\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1{-}5\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}5{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}15\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}15{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}25\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}25{-}50\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}50{-}100\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}100{-}200\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}200{-}250\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(freqCBO\_classV3) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}1\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1{-}5\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}5{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}15\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}15{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}25\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}25{-}50\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}50{-}100\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}100{-}200\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}200{-}250\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{barplot}\NormalTok{(freqCBO\_classV1,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}CBO V1\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}lightblue\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}CBO\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases \textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_CBO-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(freqCBO\_classV2,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}CBO V2\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}CBO\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_CBO-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(freqCBO\_classV3,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}CBO V3\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}CBO\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_CBO-3.pdf}
+
+Mediante un histograma se puede sacar la misma información, pero para
+ver mejor la dispersión de los datos, es mejor emplear barplot y
+establecer otros rangos perosnalizados.
+
+Se puede ver en el siguiente ejemplo con el CBO de la versión 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(datasetClassV1}\SpecialCharTok{$}\NormalTok{CBO)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/Histograma-1.pdf}
+
+\hypertarget{gruxe1ficas-de-barras-con-el-lcom5-de-las-clases-de-las-3-versiones}{%
+\subsubsection{Gráficas de barras con el LCOM5 de las clases de las 3
+versiones}\label{gruxe1ficas-de-barras-con-el-lcom5-de-las-clases-de-las-3-versiones}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{freqLCOM5\_classV1 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(LCOM5\_classV1, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{35}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{45}\NormalTok{,}\DecValTok{55}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{freqLCOM5\_classV2 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(LCOM5\_classV2, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{35}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{45}\NormalTok{,}\DecValTok{55}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{freqLCOM5\_classV3 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(LCOM5\_classV3, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{35}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{45}\NormalTok{,}\DecValTok{55}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(freqLCOM5\_classV1) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}1\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1{-}2\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}2{-}3\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}3{-}4\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}4{-}5\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}5{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}15\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}15{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}25\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}25{-}30\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}30{-}35\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}35{-}40\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}40{-}45\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}45{-}55\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(freqLCOM5\_classV2) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}1\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1{-}2\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}2{-}3\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}3{-}4\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}4{-}5\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}5{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}15\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}15{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}25\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}25{-}30\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}30{-}35\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}35{-}40\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}40{-}45\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}45{-}55\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(freqLCOM5\_classV3) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}1\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1{-}2\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}2{-}3\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}3{-}4\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}4{-}5\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}5{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}15\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}15{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}25\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}25{-}30\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}30{-}35\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}35{-}40\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}40{-}45\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}45{-}55\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{barplot}\NormalTok{(freqLCOM5\_classV1,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}LCOM5 V1\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}lightblue\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}LCOM5\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases \textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_LCOM5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(freqLCOM5\_classV2,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}LCOM5 V2\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}LCOM5\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_LCOM5-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(freqLCOM5\_classV3,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}LCOM5 V3\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}LCOM5\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_LCOM5-3.pdf}
+
+\hypertarget{gruxe1ficas-de-barras-con-el-wmc-de-las-clases-de-las-3-versiones}{%
+\subsubsection{Gráficas de barras con el WMC de las clases de las 3
+versiones}\label{gruxe1ficas-de-barras-con-el-wmc-de-las-clases-de-las-3-versiones}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{freqWMC\_classV1 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(WMC\_classV1, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{60}\NormalTok{,}\DecValTok{70}\NormalTok{,}\DecValTok{80}\NormalTok{,}\DecValTok{90}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{110}\NormalTok{,}\DecValTok{125}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{freqWMC\_classV2 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(WMC\_classV2, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{60}\NormalTok{,}\DecValTok{70}\NormalTok{,}\DecValTok{80}\NormalTok{,}\DecValTok{90}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{110}\NormalTok{,}\DecValTok{125}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{freqWMC\_classV3 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(WMC\_classV3, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{60}\NormalTok{,}\DecValTok{70}\NormalTok{,}\DecValTok{80}\NormalTok{,}\DecValTok{90}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{110}\NormalTok{,}\DecValTok{125}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+
+\FunctionTok{rownames}\NormalTok{(freqWMC\_classV1) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}2\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}2{-}4\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}4{-}6\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}6{-}8\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}8{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}30\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}30{-}40\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}40{-}50\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}50{-}60\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}60{-}70\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}70{-}80\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}80{-}90\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}90{-}100\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}100{-}110\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}110{-}125\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(freqWMC\_classV1) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}2\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}2{-}4\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}4{-}6\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}6{-}8\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}8{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}30\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}30{-}40\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}40{-}50\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}50{-}60\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}60{-}70\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}70{-}80\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}80{-}90\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}90{-}100\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}100{-}110\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}110{-}125\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(freqWMC\_classV1) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}2\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}2{-}4\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}4{-}6\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}6{-}8\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}8{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}30\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}30{-}40\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}40{-}50\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}50{-}60\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}60{-}70\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}70{-}80\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}80{-}90\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}90{-}100\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}100{-}110\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}110{-}125\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{barplot}\NormalTok{(freqWMC\_classV1,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}WMC V1\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}lightblue\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}WMC\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases \textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_WMC-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(freqWMC\_classV2,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}WMC V2\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}WMC\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_WMC-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(freqWMC\_classV3,}
+        \AttributeTok{main =} \StringTok{\textquotesingle{}WMC V3\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{xlab =} \StringTok{\textquotesingle{}WMC\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{\textquotesingle{}Cantidad de clases\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/tabla_Frecuencia_WMC-3.pdf}
+
+\hypertarget{medias-de-las-metricas-que-emplearuxe9}{%
+\subsubsection{Medias de las metricas que
+emplearé}\label{medias-de-las-metricas-que-emplearuxe9}}
+
+Medias de todas las columnas que voy a emplear para analizar el código:
+CBO, LOC, LCOM5 y WMC para las me´tricas de clases.
+
+\begin{itemize}
+\item
+  LOC -\textgreater{} La media de las líneas de código de cada version
+  analizada.
+\item
+  CBO -\textgreater{} La media del CBO de cada verion analizada. Cuanto
+  más acoplamiento, mayor CBO, se da en una clase, más dificil será
+  reutilizarla.
+\end{itemize}
+
+Se propone como indicador del esfuerzo necesario para el mantenimiento y
+en el testeo.
+
+\begin{itemize}
+\tightlist
+\item
+  LCOM5 -\textgreater{} La media del LCOM5.
+\end{itemize}
+
+Se puede crear un indicador ya que un valor alto de LCOM implica falta
+de cohesión, es decir, escasa similitud de los métodos.
+
+\begin{itemize}
+\tightlist
+\item
+  WMC -\textgreater{} La media del WMC de las versiones analizadas. Mide
+  la complejidad de una clase. Se debe mantener un valor MWC lo más bajo
+  posible.
+\end{itemize}
+
+Según he visto en apuntes de clase, se sugiere un umbral de 40 o 20,
+dependiendo si las clases son o no de interface de usuario
+respectivamente. Crearé un indicador en base a estos datos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaLOC\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(LOC\_classV1)}
+\NormalTok{mediaLOC\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(LOC\_classV2)}
+\NormalTok{mediaLOC\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(LOC\_classV3)}
+
+\NormalTok{mediaCBO\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(CBO\_classV1)}
+\NormalTok{mediaCBO\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(CBO\_classV2)}
+\NormalTok{mediaCBO\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(CBO\_classV3)}
+
+\NormalTok{mediaLCOM5\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(LCOM5\_classV1)}
+\NormalTok{mediaLCOM5\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(LCOM5\_classV2)}
+\NormalTok{mediaLCOM5\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(LCOM5\_classV3)}
+
+\NormalTok{mediaWMC\_ClassV1 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(WMC\_classV1)}
+\NormalTok{mediaWMC\_ClassV2 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(WMC\_classV2)}
+\NormalTok{mediaWMC\_ClassV3 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(WMC\_classV3)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{indicadores}{%
+\subsection{Indicadores}\label{indicadores}}
+
+En el siguiente apartado se crearan y explicarán 3 indicadores, que
+según mi criterio, tienen sentido.
+
+\hypertarget{indicador-cbo}{%
+\subsubsection{Indicador CBO}\label{indicador-cbo}}
+
+Tal como se ha visto en los apartados anteriores, cuanto mayor CBO,
+mayor acoplamineto. Esto quiere decir que las clases con un CBO alto
+necesitan un mayor esfuerzo para su mantenimiento y testeo.
+
+La media del CBO en las 3 versiones es :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaCBO\_ClassV1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.402133
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaCBO\_ClassV2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.693663
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaCBO\_ClassV3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.681186
+\end{verbatim}
+
+Tambien observo que el máximo de CBO en las 3 versiones es:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{max\_CBO\_ClassV1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 321
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{max\_CBO\_ClassV2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 225
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{max\_CBO\_ClassV3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 242
+\end{verbatim}
+
+Estos datos tan elevados sólo están presentes en alrededor de 10 clases
+de cada version. Aún asi hay muchos valores altos. El indicador que
+propongo es que toda clase que doble la media de CBO se almacenará en un
+subconjunto para poder revisarse posteriormente.
+
+Este indicador está hecho con la media del analisis de la versión 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaCBO\_doble }\OtherTok{\textless{}{-}}\NormalTok{ (mediaCBO\_ClassV1 }\SpecialCharTok{*} \DecValTok{2}\NormalTok{)}
+\NormalTok{Clases\_a\_Revisar\_CBO\_Alto }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV1 [datasetClassV1}\SpecialCharTok{$}\NormalTok{CBO }\SpecialCharTok{\textgreater{}}\NormalTok{ mediaCBO\_doble ,]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{indicador-lcom}{%
+\subsubsection{Indicador LCOM}\label{indicador-lcom}}
+
+Medias de LCOM:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaLCOM5\_ClassV1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.350501
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaLCOM5\_ClassV2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.409491
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaLCOM5\_ClassV3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.543628
+\end{verbatim}
+
+Como se puede observar la media de LCOM es de 1.35 - 1.40 - 1.54 en las
+3 versiones analizadas. Un valor alto de LCOM implica falta de cohesión,
+es decir, escasa similitud de los métodos.
+
+Propongo un indicador que guarde las clases, que superen el 5 como valor
+de LCOM, en un subconjunto para poder estudiar las clases a posterior
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Clases\_a\_Revisar\_LCOM\_Alto }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV1 [datasetClassV1}\SpecialCharTok{$}\NormalTok{LCOM5 }\SpecialCharTok{\textgreater{}} \DecValTok{5}\NormalTok{ ,]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{indicador-wmc}{%
+\subsubsection{Indicador WMC}\label{indicador-wmc}}
+
+Las medias del WMC de las 3 versiones analizadas son:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaWMC\_ClassV1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8.026922
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaWMC\_ClassV2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8.683575
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediaWMC\_ClassV3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8.668962
+\end{verbatim}
+
+Tal como se puede ver en los apuntes de la asingnatura, se sugiere un
+umbral de 40 o 20, dependiendo si las clases son o no de interface de
+usuario respectivamente.
+
+Mediante este indicador se almacenarán en el subconjunto indicado todas
+las clases que tengan un WMC mayor a 20.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Clases\_aRevisar\_WMC\_Alto }\OtherTok{\textless{}{-}}\NormalTok{ datasetClassV1 [datasetClassV1}\SpecialCharTok{$}\NormalTok{WMC }\SpecialCharTok{\textgreater{}} \DecValTok{20}\NormalTok{ ,]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{datos-tras-la-ejecucion-de-los-indicadores}{%
+\subsubsection{Datos tras la ejecucion de los
+indicadores}\label{datos-tras-la-ejecucion-de-los-indicadores}}
+
+A continuación se pueden ver los subconjuntos creados a partir de la
+ejecución de los indicadores, sobre los datos analizados de la version
+1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Clases\_a\_Revisar\_CBO\_Alto}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,143 x 102
+##    ID      Name   LongName Parent Component Path   Line Column EndLine EndColumn
+##    <chr>   <chr>  <chr>    <chr>  <chr>     <chr> <dbl>  <dbl>   <dbl>     <dbl>
+##  1 L2852   XooPl~ org.son~ L124   L103      "C:\~    87      1     191         2
+##  2 L2970   XooPl~ org.son~ L124   L103      "C:\~    37      1      67         2
+##  3 L7787   DbCli~ org.son~ L46621 L103      "C:\~    91      1     523         2
+##  4 L43505  MyBat~ org.son~ L46621 L103      "C:\~   151      1     336         2
+##  5 L7866   DbTes~ org.son~ L46621 L103      "C:\~    62      1     354         2
+##  6 L71974  SQDat~ org.son~ L46621 L103      "C:\~    58      1     236         2
+##  7 L185366 AppSt~ org.son~ L1850~ L103      "C:\~    46      1      81         2
+##  8 L188688 Proce~ org.son~ L1850~ L103      "C:\~    66      1     382         2
+##  9 L188877 Sched~ org.son~ L1850~ L103      "C:\~    53      1     490         2
+## 10 L189383 Proce~ org.son~ L1850~ L103      "C:\~    52      1     368         2
+## # ... with 1,133 more rows, and 92 more variables: CC <dbl>, CCL <dbl>,
+## #   CCO <dbl>, CI <dbl>, CLC <dbl>, CLLC <dbl>, LDC <dbl>, LLDC <dbl>,
+## #   LCOM5 <dbl>, NL <dbl>, NLE <dbl>, WMC <dbl>, CBO <dbl>, CBOI <dbl>,
+## #   NII <dbl>, NOI <dbl>, RFC <dbl>, AD <dbl>, CD <dbl>, CLOC <dbl>,
+## #   DLOC <dbl>, PDA <dbl>, PUA <dbl>, TCD <dbl>, TCLOC <dbl>, DIT <dbl>,
+## #   NOA <dbl>, NOC <dbl>, NOD <dbl>, NOP <dbl>, LLOC <dbl>, LOC <dbl>,
+## #   `NA` <dbl>, NG <dbl>, NLA <dbl>, NLG <dbl>, NLM <dbl>, NLPA <dbl>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Clases\_a\_Revisar\_LCOM\_Alto}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 157 x 102
+##    ID      Name   LongName Parent Component Path   Line Column EndLine EndColumn
+##    <chr>   <chr>  <chr>    <chr>  <chr>     <chr> <dbl>  <dbl>   <dbl>     <dbl>
+##  1 L46716  Datab~ org.son~ L46621 L103      "C:\~    59      1     462         2
+##  2 L47957  Datab~ org.son~ L46621 L103      "C:\~    64      1     544         2
+##  3 L71694  DBSes~ org.son~ L46621 L103      "C:\~    55      1     522         2
+##  4 L72037  Pagin~ org.son~ L46621 L103      "C:\~    31      1     104         2
+##  5 L192858 Props~ org.son~ L1898~ L103      "C:\~    38      1     219         2
+##  6 L195766 Markd~ org.son~ L1955~ L103      "C:\~    26      1     120         2
+##  7 L224950 WsTes~ org.son~ L2138~ L103      "C:\~    37      1     101         2
+##  8 L42546  CeTas~ org.son~ L9492  L103      "C:\~    33      1     105         2
+##  9 L43523  ReadO~ org.son~ L43931 L103      "C:\~    39      1      94         2
+## 10 L45028  Stand~ org.son~ L43740 L103      "C:\~    66      3      98         4
+## # ... with 147 more rows, and 92 more variables: CC <dbl>, CCL <dbl>,
+## #   CCO <dbl>, CI <dbl>, CLC <dbl>, CLLC <dbl>, LDC <dbl>, LLDC <dbl>,
+## #   LCOM5 <dbl>, NL <dbl>, NLE <dbl>, WMC <dbl>, CBO <dbl>, CBOI <dbl>,
+## #   NII <dbl>, NOI <dbl>, RFC <dbl>, AD <dbl>, CD <dbl>, CLOC <dbl>,
+## #   DLOC <dbl>, PDA <dbl>, PUA <dbl>, TCD <dbl>, TCLOC <dbl>, DIT <dbl>,
+## #   NOA <dbl>, NOC <dbl>, NOD <dbl>, NOP <dbl>, LLOC <dbl>, LOC <dbl>,
+## #   `NA` <dbl>, NG <dbl>, NLA <dbl>, NLG <dbl>, NLM <dbl>, NLPA <dbl>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Clases\_aRevisar\_WMC\_Alto}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 605 x 102
+##    ID     Name    LongName Parent Component Path   Line Column EndLine EndColumn
+##    <chr>  <chr>   <chr>    <chr>  <chr>     <chr> <dbl>  <dbl>   <dbl>     <dbl>
+##  1 L46716 Databa~ org.son~ L46621 L103      "C:\~    59      1     462         2
+##  2 L43502 Defaul~ org.son~ L46621 L103      "C:\~    51      1     208         2
+##  3 L47957 Databa~ org.son~ L46621 L103      "C:\~    64      1     544         2
+##  4 L48184 Abstra~ org.son~ L46621 L103      "C:\~    63      1     523         2
+##  5 L48417 CoreTe~ org.son~ L46621 L103      "C:\~    52      1     197         2
+##  6 L49149 BatchS~ org.son~ L46621 L103      "C:\~    33      1     213         2
+##  7 L7787  DbClie~ org.son~ L46621 L103      "C:\~    91      1     523         2
+##  8 L49150 DbSess~ org.son~ L46621 L103      "C:\~    32      1     199         2
+##  9 L54854 Delega~ org.son~ L46621 L103      "C:\~    36      1     210         2
+## 10 L71694 DBSess~ org.son~ L46621 L103      "C:\~    55      1     522         2
+## # ... with 595 more rows, and 92 more variables: CC <dbl>, CCL <dbl>,
+## #   CCO <dbl>, CI <dbl>, CLC <dbl>, CLLC <dbl>, LDC <dbl>, LLDC <dbl>,
+## #   LCOM5 <dbl>, NL <dbl>, NLE <dbl>, WMC <dbl>, CBO <dbl>, CBOI <dbl>,
+## #   NII <dbl>, NOI <dbl>, RFC <dbl>, AD <dbl>, CD <dbl>, CLOC <dbl>,
+## #   DLOC <dbl>, PDA <dbl>, PUA <dbl>, TCD <dbl>, TCLOC <dbl>, DIT <dbl>,
+## #   NOA <dbl>, NOC <dbl>, NOD <dbl>, NOP <dbl>, LLOC <dbl>, LOC <dbl>,
+## #   `NA` <dbl>, NG <dbl>, NLA <dbl>, NLG <dbl>, NLM <dbl>, NLPA <dbl>, ...
+\end{verbatim}
+
+Algunas formas de analizar los datos obtenidos serían un grafico de
+densidad o un gráfico de sectores.
+
+Densidad del CBO en las clases maracadas como CBO alto.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(Clases\_a\_Revisar\_CBO\_Alto}\SpecialCharTok{$}\NormalTok{CBO), }\AttributeTok{main=}\StringTok{"Densidad de CBO"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/densidad_classV1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{freqLCOM\_alto\_classV1 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{cut}\NormalTok{(Clases\_a\_Revisar\_LCOM\_Alto}\SpecialCharTok{$}\NormalTok{LCOM5, }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{55}\NormalTok{), }\AttributeTok{right =}\NormalTok{ F, }\AttributeTok{include.lowest =}\NormalTok{ T), }\AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{)}
+
+\FunctionTok{rownames}\NormalTok{(freqLCOM\_alto\_classV1) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}0{-}2\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}2{-}4\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}4{-}6\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}6{-}8\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}8{-}10\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}10{-}20\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}20{-}30\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}30{-}40\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}40{-}55\textquotesingle{}}\NormalTok{)}
+\FunctionTok{pie}\NormalTok{(}\FunctionTok{table}\NormalTok{(freqLCOM\_alto\_classV1), }\AttributeTok{main=}\StringTok{"LCOM"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Indicadores_files/figure-latex/grafico_pie-1.pdf}
+
+\end{document}

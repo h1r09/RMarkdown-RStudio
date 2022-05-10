@@ -3,8 +3,9 @@ title: "Indicadores"
 author: "Hunor Moriczi"
 date: '2022-05-05'
 output:
-  pdf_document: default
+  word_document: default
   html_document: default
+  pdf_document: default
 ---
 
 # Indicadores en R
@@ -368,7 +369,7 @@ Clases_a_Revisar_CBO_Alto <- datasetClassV1 [datasetClassV1$CBO > mediaCBO_doble
 
 Medias de LCOM:
 
-```{r mostrar_media_CBO}
+```{r mostrar_media_LCOM}
 mediaLCOM5_ClassV1
 mediaLCOM5_ClassV2
 mediaLCOM5_ClassV3
@@ -401,6 +402,8 @@ Mediante este indicador se almacenarán en el subconjunto indicado todas las cla
 Clases_aRevisar_WMC_Alto <- datasetClassV1 [datasetClassV1$WMC > 20 ,]
 ```
 
+### Datos tras la ejecucion de los indicadores
+
 A continuación se pueden ver los subconjuntos creados a partir de la ejecución de los indicadores, sobre los datos analizados de la version 1.
 
 ```{r Ver_clases_resultado_indicadores}
@@ -423,9 +426,5 @@ plot(density(Clases_a_Revisar_CBO_Alto$CBO), main="Densidad de CBO")
 freqLCOM_alto_classV1 <- table(cut(Clases_a_Revisar_LCOM_Alto$LCOM5, breaks = c(0,2,4,6,8,10,20,30,40,55), right = F, include.lowest = T), exclude = NULL)
 
 rownames(freqLCOM_alto_classV1) <- c('0-2','2-4','4-6','6-8','8-10','10-20','20-30','30-40','40-55')
-pie(table(freqLCOM_alto_classV1))
-```
-
-```{r Boxplot}
-boxplot(x=datasetClassV1[,41:42],main="Boxplots LOC")
+pie(table(freqLCOM_alto_classV1), main="LCOM")
 ```
