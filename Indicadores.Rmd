@@ -377,7 +377,9 @@ mediaLCOM5_ClassV3
 
 Como se puede observar la media de LCOM es de 1.35 - 1.40 - 1.54 en las 3 versiones analizadas. Un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos.
 
-Propongo un indicador que guarde las clases, que superen el 5 como valor de LCOM, en un subconjunto para poder estudiar las clases a posterior
+Al analizar los datos, ordenados por el valor de LCOM, he podido ver que el valor máximo es 51 y va descendiendo hasta llegar a un valor de 5 a partir del elemento 175 de 7500 elementos. Esto es un 2.33% de las clases analizadas.
+
+Viendo los datos anteriores, propongo un indicador que guarde las clases, que superen el 5 como valor de LCOM en un subconjunto para poder estudiar las clases a posterior
 
 ```{r indicador_LCOM}
 Clases_a_Revisar_LCOM_Alto <- datasetClassV1 [datasetClassV1$LCOM5 > 5 ,]
