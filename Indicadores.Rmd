@@ -303,13 +303,13 @@ Medias de todas las columnas que voy a emplear para analizar el código: CBO, LO
 
 -   CBO -\> La media del CBO de cada verion analizada. Cuanto más acoplamiento, mayor CBO, se da en una clase, más dificil será reutilizarla.
 
-Se propone como indicador del esfuerzo necesario para el mantenimiento y en el testeo. 
+Se propone como indicador del esfuerzo necesario para el mantenimiento y en el testeo.
 
--   LCOM5 -\> La media del LCOM5. 
+-   LCOM5 -\> La media del LCOM5.
 
 Se puede crear un indicador ya que un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos.
 
--   WMC -\> La media del WMC de las versiones analizadas. Mide la complejidad de una clase.  Se debe mantener un valor MWC lo más bajo posible.
+-   WMC -\> La media del WMC de las versiones analizadas. Mide la complejidad de una clase. Se debe mantener un valor MWC lo más bajo posible.
 
 Según he visto en apuntes de clase, se sugiere un umbral de 40 o 20, dependiendo si las clases son o no de interface de usuario respectivamente. Crearé un indicador en base a estos datos.
 
@@ -331,8 +331,7 @@ mediaWMC_ClassV2 <- mean(WMC_classV2)
 mediaWMC_ClassV3 <- mean(WMC_classV3)
 ```
 
-
-## Indicadores 
+## Indicadores
 
 En el siguiente apartado se crearan y explicarán 3 indicadores, que según mi criterio, tienen sentido.
 
@@ -347,6 +346,7 @@ mediaCBO_ClassV1
 mediaCBO_ClassV2
 mediaCBO_ClassV3
 ```
+
 Tambien observo que el máximo de CBO en las 3 versiones es:
 
 ```{r mostrar_maximo_CBO}
@@ -354,29 +354,27 @@ max_CBO_ClassV1
 max_CBO_ClassV2
 max_CBO_ClassV3
 ```
- Estos datos tan elevados sólo están presentes en alrededor de 10 clases de cada version. Aun asi hay muchos valores altos.
- El indicador que propongo es que toda clase que doble la media de CBO se alamcenará en un subconjunto para poder revisarse posteriormente.
- 
- Este indicador está hecho con la media del analisis de la versión 1.
- 
+
+Estos datos tan elevados sólo están presentes en alrededor de 10 clases de cada version. Aún asi hay muchos valores altos. El indicador que propongo es que toda clase que doble la media de CBO se almacenará en un subconjunto para poder revisarse posteriormente.
+
+Este indicador está hecho con la media del analisis de la versión 1.
+
 ```{r indicador_CBO}
 mediaCBO_doble <- (mediaCBO_ClassV1 * 2)
 Clases_a_Revisar_CBO_Alto <- datasetClassV1 [datasetClassV1$CBO > mediaCBO_doble ,]
 ```
 
-
-
-### Indicador LCOM 
+### Indicador LCOM
 
 Medias de LCOM:
+
 ```{r mostrar_media_CBO}
 mediaLCOM5_ClassV1
 mediaLCOM5_ClassV2
 mediaLCOM5_ClassV3
 ```
 
-Como se puede observar la media es de 1.35 - 1.40 - 1.54 en las 3 versiones analizadas.
-Un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos.
+Como se puede observar la media de LCOM es de 1.35 - 1.40 - 1.54 en las 3 versiones analizadas. Un valor alto de LCOM implica falta de cohesión, es decir, escasa similitud de los métodos.
 
 Propongo un indicador que guarde las clases, que superen el 5 como valor de LCOM, en un subconjunto para poder estudiar las clases a posterior
 
@@ -384,35 +382,48 @@ Propongo un indicador que guarde las clases, que superen el 5 como valor de LCOM
 Clases_a_Revisar_LCOM_Alto <- datasetClassV1 [datasetClassV1$LCOM5 > 5 ,]
 ```
 
-
 ### Indicador WMC
+
+Las medias del WMC de las 3 versiones analizadas son:
+
+```{r medias_WMC}
+mediaWMC_ClassV1
+mediaWMC_ClassV2
+mediaWMC_ClassV3
+
+```
+
+Tal como se puede ver en los apuntes de la asingnatura, se sugiere un umbral de 40 o 20, dependiendo si las clases son o no de interface de usuario respectivamente.
+
+Mediante este indicador se almacenarán en el subconjunto indicado todas las clases que tengan un WMC mayor a 20.
 
 ```{r indicador_WMC}
 Clases_aRevisar_WMC_Alto <- datasetClassV1 [datasetClassV1$WMC > 20 ,]
 ```
 
+A continuación se pueden ver los subconjuntos creados a partir de la ejecución de los indicadores, sobre los datos analizados de la version 1.
 
 ```{r Ver_clases_resultado_indicadores}
-
+Clases_a_Revisar_CBO_Alto
+Clases_a_Revisar_LCOM_Alto
+Clases_aRevisar_WMC_Alto
 
 ```
 
-Moda para pero el número que más se repite dentro de los datos.
+Algunas formas de analizar los datos obtenidos serían un grafico de densidad o un gráfico de sectores.
 
-
-
-Densidad de lineas de codigo por clase
+Densidad del CBO en las clases maracadas como CBO alto.
 
 ```{r densidad_classV1}
-plot(density(datasetClassV1$CBO), main="Densidad de líneas de código")
-```
-
-```{r densidad_classV1}
-plot(density(datasetMethodV1$NOS), main="Densidad NOS Method V1")
+plot(density(Clases_a_Revisar_CBO_Alto$CBO), main="Densidad de CBO")
 ```
 
 ```{r grafico_pie}
-pie(table(datasetClassV1$LOC))
+
+freqLCOM_alto_classV1 <- table(cut(Clases_a_Revisar_LCOM_Alto$LCOM5, breaks = c(0,2,4,6,8,10,20,30,40,55), right = F, include.lowest = T), exclude = NULL)
+
+rownames(freqLCOM_alto_classV1) <- c('0-2','2-4','4-6','6-8','8-10','10-20','20-30','30-40','40-55')
+pie(table(freqLCOM_alto_classV1))
 ```
 
 ```{r Boxplot}
